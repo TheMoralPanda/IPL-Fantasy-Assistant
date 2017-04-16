@@ -1,0 +1,5 @@
+node_modules/
+
+#excluding  db data folder
+
+db/
