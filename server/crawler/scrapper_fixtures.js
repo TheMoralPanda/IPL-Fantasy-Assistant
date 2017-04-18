@@ -46,10 +46,23 @@ jsdom.env({
     var $ = window.$;
     //console.log("HN Links");
     $("#series-matches > div").slice(2).each(function() {
-    	
+    	var fixture = {}
  // month date day      //console.log($(this).children('div').eq(0).text())
-        $(this).children('div').eq(2).children('div').eq(0).children().each(function(){
-            var fixture = {}
+ 		var extractedDate = $(this).children('div').eq(0).text()
+ 		if(extractedDate && extractedDate.length >0){
+ 			var fTime = extractedDate.split(', ');
+ 			fTime_month = fTime[0].trim().split(" ");
+ 			fTime_day = parseInt(fTime[0].replace(/[^0-9]/g, '').trim());
+ 			fTime_month = fTime_month[0]; 
+ 			console.log(fTime);
+ 			fTime_weekDay = fTime[1];
+ 			fTime_year = 2017;  
+ 			
+ 			fixture.extractedDate = extractedDate; 
+        	
+ 		}
+ 		$(this).children('div').eq(2).children('div').eq(0).children().each(function(){
+            
             if($(this).prop('tagName').toUpperCase() === "A"){
             	
             	if($(this).text().indexOf('won')==-1){
@@ -73,11 +86,30 @@ jsdom.env({
 		        fixture.city = loc[1].trim();
 		    
 		    }            
-        IPL_Schedule.push(fixture);
+        
         })
+		IPL_Schedule.push(fixture);
     });
 
-	console.log(IPL_Schedule[1]);
+
+    for(var i =0;i<IPL_Schedule.length;i++){
+    	if(i<IPL_Schedule.length-1){
+    		var current = IPL_Schedule[i];
+    			next = IPL_Schedule[i+1];
+    		if(next.extractedDate === current.extractedDate)
+    			current.time = "4PM IST";
+    		else
+    			current.time = "8PM IST";
+    	}else{
+    		current.time = "8PM IST";
+    	}
+    	console.log(IPL_Schedule[i])
+
+    }
+    	
+	//for(fixture in IPL_Schedule){
+	//	console.log(fixture.homeTeam() +" vs "+fixture.awayTeam)
+	//}
   }
 });
 
