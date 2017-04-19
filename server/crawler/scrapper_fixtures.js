@@ -35,9 +35,6 @@ Object.prototype.getKeyByValue = function( value ) {
     }
 }
 
-
-
-//test.getKeyByValue( 42 );
 var IPL_Schedule = [];
 jsdom.env({
   url: "http://www.cricbuzz.com/cricket-series/2568/indian-premier-league-2017/matches",
@@ -45,11 +42,15 @@ jsdom.env({
   done: function (err, window) {
     var $ = window.$;
     //console.log("HN Links");
+//	var temp_extractedDate;
     $("#series-matches > div").slice(2).each(function() {
     	var fixture = {}
  // month date day      //console.log($(this).children('div').eq(0).text())
- 		var extractedDate = $(this).children('div').eq(0).text()
- 		if(extractedDate && extractedDate.length >0){
+ 		var extractedDate = $(this).children('div').eq(1).text()
+ 		
+		console.log(extractedDate +" , "+extractedDate.length+" , "+extractedDate.trim().length);
+		
+		if(extractedDate && extractedDate.length >0){
  			var fTime = extractedDate.split(', ');
  			fTime_month = fTime[0].trim().split(" ");
  			fTime_day = parseInt(fTime[0].replace(/[^0-9]/g, '').trim());
@@ -57,9 +58,7 @@ jsdom.env({
  			console.log(fTime);
  			fTime_weekDay = fTime[1];
  			fTime_year = 2017;  
- 			
- 			fixture.extractedDate = extractedDate; 
-        	
+ 			fixture.extractedDate = extractedDate;			        	
  		}
  		$(this).children('div').eq(2).children('div').eq(0).children().each(function(){
             
@@ -85,13 +84,10 @@ jsdom.env({
 		        fixture.stadium = loc[0].trim();
 		        fixture.city = loc[1].trim();
 		    
-		    }            
-        
+		    }                  
         })
 		IPL_Schedule.push(fixture);
     });
-
-
     for(var i =0;i<IPL_Schedule.length;i++){
     	if(i<IPL_Schedule.length-1){
     		var current = IPL_Schedule[i];
@@ -103,13 +99,9 @@ jsdom.env({
     	}else{
     		current.time = "8PM IST";
     	}
-    	console.log(IPL_Schedule[i])
-
+    	//console.log(IPL_Schedule[i])
     }
     	
-	//for(fixture in IPL_Schedule){
-	//	console.log(fixture.homeTeam() +" vs "+fixture.awayTeam)
-	//}
   }
 });
 
