@@ -48,14 +48,14 @@ jsdom.env({
  // month date day      //console.log($(this).children('div').eq(0).text())
  		var extractedDate = $(this).children('div').eq(1).text()
  		
-		console.log(extractedDate +" , "+extractedDate.length+" , "+extractedDate.trim().length);
+		//console.log(extractedDate +" , "+extractedDate.length+" , "+extractedDate.trim().length);
 		
 		if(extractedDate && extractedDate.length >0){
  			var fTime = extractedDate.split(', ');
  			fTime_month = fTime[0].trim().split(" ");
  			fTime_day = parseInt(fTime[0].replace(/[^0-9]/g, '').trim());
  			fTime_month = fTime_month[0]; 
- 			console.log(fTime);
+ 			//console.log(fTime);
  			fTime_weekDay = fTime[1];
  			fTime_year = 2017;  
  			fixture.extractedDate = extractedDate;			        	
@@ -101,6 +101,15 @@ jsdom.env({
     	}
     	//console.log(IPL_Schedule[i])
     }
+           // db code
+   /*     MongoClient.connect(db_url, function(err, db){
+            var col = db.collection('fixtures');
+            col.insertMany(IPL_Schedule,function(err, r){
+                assert.equal(null, err)
+                //assert.equal(2, r.insertedCount);             
+            })
+            db.close()
+        })*/
     	
   }
 });
