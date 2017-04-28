@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 
 // index
 app.get('/', function (req, res) {
-	res.send('hello world i am a secret bot')
+	res.send('IPL Fantasy Assistant')
 })
 
 // for facebook verification
@@ -131,4 +131,4 @@ function sendGenericMessage(sender) {
 }
 
 module.exports = app;
-app.listen(4000); //the port you want to use
+app.listen(3000); //the port you want to use
